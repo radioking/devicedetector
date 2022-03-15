@@ -2,10 +2,11 @@ package parser
 
 import (
 	"errors"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"strconv"
 	"strings"
+
+	"gopkg.in/yaml.v2"
 
 	regexp "github.com/dlclark/regexp2"
 )
@@ -82,6 +83,7 @@ func (r *Regular) Compile() *regexp.Regexp {
 		rg := r.Regex
 		rg = strings.Replace(rg, `/`, `\/`, -1)
 		rg = strings.Replace(rg, `++`, `+`, -1)
+		rg = strings.Replace(rg, `\\_`, `\_`, -1)
 		rg = strings.Replace(rg, `\_`, `_`, -1)
 		str := `(?:^|[^A-Z0-9-_]|[^A-Z0-9-]_|sprd-)(?:` + rg + ")"
 		r.Regexp = regexp.MustCompile(str, regexp.IgnoreCase)
@@ -142,9 +144,10 @@ func BuildVersion(versionString string, matches []string) string {
 	return ver
 }
 
-var(
+var (
 	tdReg = regexp.MustCompile(` TD$`, regexp.IgnoreCase)
 )
+
 func BuildModel(m string, matches []string) string {
 	model := BuildByMatch(m, matches)
 	model = strings.ReplaceAll(model, "_", " ")
