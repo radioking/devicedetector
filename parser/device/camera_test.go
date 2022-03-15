@@ -4,7 +4,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	. "github.com/gamebtc/devicedetector/parser"
+	. "github.com/radioking/devicedetector/parser"
 	"gotest.tools/assert"
 )
 

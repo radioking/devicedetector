@@ -3,7 +3,7 @@ package device
 import (
 	"path/filepath"
 
-	. "github.com/gamebtc/devicedetector/parser"
+	. "github.com/radioking/devicedetector/parser"
 )
 
 const ParserNameHbbTv = `tv`
