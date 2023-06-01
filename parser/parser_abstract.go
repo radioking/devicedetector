@@ -83,8 +83,14 @@ func (r *Regular) Compile() *regexp.Regexp {
 		rg := r.Regex
 		rg = strings.Replace(rg, `/`, `\/`, -1)
 		rg = strings.Replace(rg, `++`, `+`, -1)
-		rg = strings.Replace(rg, `\\_`, `\_`, -1)
-		rg = strings.Replace(rg, `\_`, `_`, -1)
+
+		rgParts := strings.Split(rg, `\\`)
+		for i, part := range rgParts {
+			part = strings.Replace(part, `\_`, `_`, -1)
+			rgParts[i] = part
+		}
+		rg = strings.Join(rgParts, `\\`)
+
 		str := `(?:^|[^A-Z0-9-_]|[^A-Z0-9-]_|sprd-)(?:` + rg + ")"
 		r.Regexp = regexp.MustCompile(str, regexp.IgnoreCase)
 	}
